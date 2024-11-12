@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Để lấy ID từ URL
-
+import { useNavigate } from 'react-router-dom';
 const CourseDetail = () => {
   const { id } = useParams(); // Lấy ID từ URL
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -59,37 +60,33 @@ const CourseDetail = () => {
     }));
   };
 
-  // Hàm xử lý submit form (Thanh toán)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Gửi thông tin thanh toán lên backend để lưu vào database
+      // Gửi yêu cầu thanh toán lên backend để lưu thông tin thanh toán
       const paymentResponse = await axios.post('http://127.0.0.1:8000/api/payments/', {
         ...formData,
         course: id,
       });
       console.log('Thanh toán đã được lưu thành công:', paymentResponse);
+      const paymentId = paymentResponse.data.id;
+      localStorage.setItem('paymentId', paymentId);
 
-      // Sau khi lưu thành công, gọi API ZaloPay để tạo đơn hàng
+      // Gọi API để tạo đơn hàng ZaloPay
       const orderResponse = await axios.post('http://127.0.0.1:8000/api/zalopay/create-order/', {
-        paymentId: paymentResponse.data.id, // Gửi ID thanh toán vừa lưu
+        paymentId: paymentResponse.data.id,
       });
       console.log('Đơn hàng ZaloPay được tạo thành công:', orderResponse);
 
-      const orderUrl = orderResponse.data.order_url;
-
       // Mở trang thanh toán ZaloPay trong tab mới
+      const orderUrl = orderResponse.data.order_url;
       window.open(orderUrl, '_blank');
     } catch (error) {
       console.error('Lỗi khi thanh toán hoặc gọi ZaloPay:', error);
       alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
     }
-
-    // Đóng popup sau khi xử lý xong
-    setShowPopup(false);
   };
-
   return (
     <div className="container-xxl py-5" style={{ marginLeft: '50px' }}>
       <div className="container">
