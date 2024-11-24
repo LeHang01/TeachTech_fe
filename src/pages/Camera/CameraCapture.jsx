@@ -77,7 +77,7 @@ const CameraCapture = () => {
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>Quét khuôn mặt</h1>
+      <h1 style={{ color: 'white' }}>Quét khuôn mặt</h1>
       <div style={{ position: 'relative', display: 'inline-block' }}>
         <video
           ref={videoRef}

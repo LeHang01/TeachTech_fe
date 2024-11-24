@@ -5,6 +5,12 @@ import Home from './pages/home/Home';
 import CourseDetail from './pages/courseDetail/CourseDetail';
 import RegistrationSuccess from './pages/RegistrationSuccess/RegistrationSuccess';
 import CameraCapture from './pages/Camera/CameraCapture';
+import LoginForm from './pages/Login/Login';
+import StudentDashboard from './pages/student/StudentDashboard';
+import TeacherDashboard from './pages/teacher/TeacherDashboard';
+import TeacherLayout from './layouts/TeacherLayout';
+import StudentLayout from './layouts/StudentLayout';
+
 export const mainRouters = [
   {
     path: '/',
@@ -35,5 +41,20 @@ export const mainRouters = [
     path: '/face-scan', // Route động cho chi tiết khóa học
     component: CameraCapture,
     layout: MainLayout,
+  },
+  {
+    path: '/login', // Route động cho chi tiết khóa học
+    component: LoginForm,
+    layout: MainLayout,
+  },
+  {
+    path: '/teacher-dashboard', // Route cho giáo viên
+    component: TeacherDashboard,
+    layout: TeacherLayout, // Layout dành cho giáo viên
+  },
+  {
+    path: '/student-dashboard', // Route cho học viên
+    component: StudentDashboard,
+    layout: StudentLayout, // Layout dành cho học viên
   },
 ];

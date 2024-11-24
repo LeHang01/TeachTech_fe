@@ -33,3 +33,17 @@
   cursor: pointer;
   color: #333;
 }
+.video-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.video-container iframe {
+  width: 100%; /* Chiếm toàn bộ chiều rộng container */
+  max-width: 900px; /* Đặt giới hạn chiều rộng tối đa */
+  height: 506px; /* Tỉ lệ chuẩn 16:9 */
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 auto; /* Canh giữa */
+}

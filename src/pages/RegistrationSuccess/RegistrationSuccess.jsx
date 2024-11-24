@@ -71,10 +71,33 @@ const RegistrationSuccess = () => {
         ) : (
           <p>Không có thông tin người dùng.</p>
         )}
-        <button className="scan-button" onClick={handleFaceScan}>
+        <button
+          className="scan-button"
+          onClick={handleFaceScan}
+          style={{
+            backgroundColor: '#FE5D37',
+            color: 'white',
+            fontWeight: 'bold',
+            border: '2px solid white', // Viền trắng
+            borderRadius: '8px', // Bo tròn viền
+            padding: '10px 20px', // Padding để làm nút đẹp hơn
+          }}
+        >
           Quét khuôn mặt
         </button>
-        <button className="login-button" onClick={handleLoginClick}>
+
+        <button
+          className="login-button"
+          onClick={handleLoginClick}
+          style={{
+            backgroundColor: '#FE5D37',
+            color: 'white',
+            fontWeight: 'bold',
+            border: '2px solid white', // Viền trắng
+            borderRadius: '8px', // Bo tròn viền
+            padding: '10px 20px', // Padding để làm nút đẹp hơn
+          }}
+        >
           Đăng nhập
         </button>
       </div>

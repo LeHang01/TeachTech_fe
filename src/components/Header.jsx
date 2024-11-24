@@ -1,84 +1,103 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-export const Header = () => {
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isTeacher, setIsTeacher] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Kiểm tra LocalStorage khi component được render
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (userData) {
+      setIsLoggedIn(true);
+      setIsTeacher(userData.is_teacher); // Lấy giá trị is_teacher
+      setFullName(userData.full_name); // Lấy full_name từ LocalStorage
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Xóa LocalStorage
+    localStorage.clear();
+    setIsLoggedIn(false); // Cập nhật trạng thái đăng nhập
+    navigate('/login'); // Chuyển hướng về trang login
+  };
+
   return (
-    <div>
-      {/* Spinner Start
-      <div
-        id="spinner"
-        className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    <nav className="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
+      <Link to="/" className="navbar-brand">
+        <h1 className="m-0 text-primary">
+          <i className="fa fa-book-reader me-3"></i>TeachTech
+        </h1>
+      </Link>
+      <button
+        type="button"
+        className="navbar-toggler"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
       >
-        <div
-          className="spinner-border text-primary"
-          style={{ width: '3rem', height: '3rem' }}
-          role="status"
-        >
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div> */}
-      {/* Spinner End */}
-      {/* Navbar Start */}
-      <nav className="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
-        <Link to="/" className="navbar-brand">
-          <h1 className="m-0 text-primary">
-            <i className="fa fa-book-reader me-3"></i>TeachTech
-          </h1>
-        </Link>
-        <button
-          type="button"
-          className="navbar-toggler"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarCollapse">
-          <div className="navbar-nav mx-auto">
-            <Link to="/" className="nav-item nav-link active">
-              Home
-            </Link>
-            <Link to="/about" className="nav-item nav-link">
-              About Us
-            </Link>
-            <Link to="/classes" className="nav-item nav-link">
-              Classes
-            </Link>
-            <div className="nav-item dropdown">
-              <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                Pages
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarCollapse">
+        <div className="navbar-nav mx-auto">
+          {isLoggedIn ? (
+            isTeacher ? (
+              <>
+                <Link to="/classes" className="nav-item nav-link">
+                  Classes
+                </Link>
+                <Link to="/schedule" className="nav-item nav-link">
+                  Schedule
+                </Link>
+                <Link to="/materials" className="nav-item nav-link">
+                  Documents
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/schedule" className="nav-item nav-link">
+                  Schedule
+                </Link>
+                <Link to="/attendance" className="nav-item nav-link">
+                  Attendance
+                </Link>
+                <Link to="/classes" className="nav-item nav-link">
+                  Grades
+                </Link>
+              </>
+            )
+          ) : (
+            <>
+              <Link to="/" className="nav-item nav-link active">
+                Home
               </Link>
-              <div className="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                <Link to="/facility" className="dropdown-item">
-                  School Facilities
-                </Link>
-                <Link to="/team" className="dropdown-item">
-                  Popular Teachers
-                </Link>
-                <Link to="/call-to-action" className="dropdown-item">
-                  Become A Teacher
-                </Link>
-                <Link to="/appointment" className="dropdown-item">
-                  Make Appointment
-                </Link>
-                <Link to="/testimonial" className="dropdown-item">
-                  Testimonial
-                </Link>
-                <Link to="/404" className="dropdown-item">
-                  404 Error
-                </Link>
-              </div>
-            </div>
-            <Link to="/contact" className="nav-item nav-link">
-              Contact Us
-            </Link>
-          </div>
-          <Link to="#" className="btn btn-primary rounded-pill px-3 d-none d-lg-block">
-            Join Us<i className="fa fa-arrow-right ms-3"></i>
-          </Link>
+              <Link to="/about" className="nav-item nav-link">
+                About Us
+              </Link>
+            </>
+          )}
         </div>
-      </nav>
-      {/* Navbar End */}
-    </div>
+        <div className="d-flex align-items-center">
+          {isLoggedIn && <span className="me-3 text-primary fw-bold">Hello, {fullName}</span>}
+          {isLoggedIn ? (
+            <button
+              className="btn btn-primary rounded-pill px-3 d-none d-lg-block"
+              onClick={handleLogout}
+            >
+              Logout<i className="fa fa-arrow-right ms-3"></i>
+            </button>
+          ) : (
+            <Link to="/login" className="btn btn-primary rounded-pill px-3 d-none d-lg-block">
+              Log in<i className="fa fa-arrow-right ms-3"></i>
+            </Link>
+          )}
+        </div>
+      </div>
+    </nav>
   );
 };
+
 export default Header;
