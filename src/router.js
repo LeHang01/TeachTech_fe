@@ -10,6 +10,11 @@ import StudentDashboard from './pages/student/StudentDashboard';
 import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import TeacherLayout from './layouts/TeacherLayout';
 import StudentLayout from './layouts/StudentLayout';
+import VerifyImage from './pages/Camera/VerifyCapture';
+import Schedule from './pages/schedule/schedule';
+import LopHocTrucTuyen from './pages/class/class';
+import classes from './pages/classes/classes';
+import UploadDocuments from './pages/documents/documents';
 
 export const mainRouters = [
   {
@@ -43,6 +48,11 @@ export const mainRouters = [
     layout: MainLayout,
   },
   {
+    path: '/attendance', // Route động cho chi tiết khóa học
+    component: VerifyImage,
+    layout: MainLayout,
+  },
+  {
     path: '/login', // Route động cho chi tiết khóa học
     component: LoginForm,
     layout: MainLayout,
@@ -56,5 +66,25 @@ export const mainRouters = [
     path: '/student-dashboard', // Route cho học viên
     component: StudentDashboard,
     layout: StudentLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/schedule', // Route cho học viên
+    component: Schedule,
+    layout: StudentLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/class', // Route cho học viên
+    component: LopHocTrucTuyen,
+    layout: StudentLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/classes', // Route cho học viên
+    component: classes,
+    layout: TeacherLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/documents', // Route cho học viên
+    component: UploadDocuments,
+    layout: TeacherLayout, // Layout dành cho học viên
   },
 ];

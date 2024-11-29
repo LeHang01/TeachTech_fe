@@ -1,0 +1,35 @@
+.upload-documents {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert {
+  margin-top: 10px;
+}
+.me-2 {
+  margin-left: 330px !important;
+}

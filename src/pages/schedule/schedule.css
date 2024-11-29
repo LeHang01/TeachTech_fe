@@ -1,0 +1,57 @@
+/* Tiêu đề bảng */
+.thead-header {
+  background-color: #003366 !important; /* Xanh navy */
+  color: white !important;
+  text-align: center;
+}
+
+/* Lý thuyết */
+.bg-gray {
+  background-color: #5ba4e5 !important; /* Xanh da trời nhẹ */
+  border-radius: 4px !important;
+  color: white !important;
+}
+
+/* Thực hành */
+.bg-green {
+  margin-left: 5px;
+  background-color: #205a22 !important; /* Xanh lá rừng */
+  color: white !important;
+  border-radius: 4px !important;
+}
+
+/* Lịch thi */
+.bg-yellow {
+  margin-left: 5px;
+  background-color: #cecb1b !important; /* Cam đất */
+  border-radius: 4px !important;
+  color: white !important;
+}
+/* Tạm ngưng */
+/* Tạm ngưng */
+.bg-paused {
+  background-color: #ff6f61 !important; /* Đỏ cam */
+  color: white !important;
+  border-radius: 4px !important;
+}
+.bg-tam-ngung {
+  border-radius: 4px !important;
+  margin-left: 5px;
+  background-color: #ff6f61 !important;
+}
+.bg-hoc-bu {
+  border-radius: 4px !important;
+  margin-left: 5px;
+  background-color: #eb84e2 !important;
+}
+/* Học bù */
+.bg-makeup {
+  background-color: #eb84e2 !important; /* Vàng tươi */
+  color: rgb(255, 255, 255) !important;
+  border-radius: 4px !important;
+}
+/* CSS cho gạch ngang */
+.strikethrough {
+  text-decoration: line-through;
+  color: #ffcdd2; /* Màu cho môn học tạm ngưng */
+}

@@ -1,0 +1,30 @@
+/* App.css */
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-right: 1px solid #ddd;
+  height: 100vh;
+}
+
+.sidebar .nav-link {
+  color: #495057;
+  cursor: pointer;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #e9ecef;
+}
+
+.table th,
+.table td {
+  text-align: center;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+h3 {
+  margin-top: 20px;
+}
