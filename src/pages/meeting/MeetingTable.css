@@ -1,0 +1,60 @@
+/* Container chính bao quanh tất cả */
+.meeting-container {
+  width: 90%; /* Độ rộng tổng thể */
+  max-width: 1200px; /* Giới hạn chiều rộng */
+  margin: 20px auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tiêu đề */
+.meeting-title {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Nút thêm cuộc họp */
+.add-meeting-btn {
+  align-self: flex-end; /* Căn chỉnh nút sang bên phải */
+  margin-bottom: 20px;
+  width: 120px;
+}
+
+/* Bảng */
+.ant-table-wrapper {
+  width: 100%;
+}
+/* Container chứa vòng tròn */
+.attachment-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Vòng tròn màu đỏ hiển thị số */
+.attachment-circle {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  width: 13px; /* Kích thước hình tròn */
+  height: 13px;
+  background-color: red; /* Màu nền */
+  color: white; /* Màu chữ */
+  border-radius: 50%; /* Tạo hình tròn */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* Kích thước chữ */
+  font-weight: bold; /* Chữ đậm */
+}
+

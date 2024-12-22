@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as faceapi from 'face-api.js';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 
 const VerifyImage = () => {
+  const { meetingId } = useParams();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [status, setStatus] = useState('Vui lòng để mặt vào khung hình');
@@ -12,8 +13,6 @@ const VerifyImage = () => {
   const streamRef = useRef(null);
   const [showRescanButton, setShowRescanButton] = useState(false);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user')); // Parse the user object
-  const user_id = user?.user_id || ''; // Safely access the user_id, default to an empty string if not present
   const [userInfo, setUserInfo] = useState(null); // Thông tin user từ backend
   const [showCheckInButton, setShowCheckInButton] = useState(false); // Hiển thị nút "Điểm danh"
   const formatDate = (dateString) => moment(dateString).format('DD/MM/YYYY');
@@ -106,7 +105,6 @@ const VerifyImage = () => {
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageUrl = canvas.toDataURL('image/png');
-    console.log('Captured photo URL:', imageUrl);
     setCapturedFrames((prevFrames) => {
       const newFrames = [...prevFrames, imageUrl];
 
@@ -122,17 +120,16 @@ const VerifyImage = () => {
   // Hàm gửi ảnh và user_id đến API
   const sendCapturedImagesToAPI = async (capturedFrames) => {
     try {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      const user_id = parseInt(userData.id, 10); // Chuyển user_id thành số nguyên
+      const meetingIdParsed = parseInt(meetingId, 10); // Chuyển meetingId thành số nguyên
+      console.log('user_id',user_id)
+      console.log('meetingIdParsed', meetingIdParsed)
       const response = await axios.post('http://127.0.0.1:8000/api/faces/recognize/', {
-        images: capturedFrames, // Mảng base64 của các ảnh
+        meetingId: meetingIdParsed,
+        user_id: user_id,
+        images: capturedFrames, // Mảng base64 của ảnh
       });
-      console.log('response', response);
-      console.log(
-        'response.data.user_id:',
-        response.data.user_id,
-        'Type:',
-        typeof response.data.user_id,
-      );
-      console.log('user_id:', user_id, 'Type:', typeof user_id);
 
       if (parseInt(response.data.user_id, 10) === parseInt(user_id, 10)) {
         // Xử lý nếu trùng khớp
@@ -151,7 +148,9 @@ const VerifyImage = () => {
         setShowRescanButton(true);
       }
     } catch (error) {
-      console.error('Error sending images to API:', error);
+      setStatus('Nhận diện thất bại!   ');
+        setBorderColor('red');
+        setShowRescanButton(true);
     }
   };
 

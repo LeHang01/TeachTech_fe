@@ -168,7 +168,7 @@ const Home = () => {
             style={{ maxWidth: '600px' }}
           >
             <h1 className="mb-3">School Classes</h1>
-            <p>Đưa ra mô tả khóa học tại đây.</p>
+
           </div>
 
           <div className="row g-4">

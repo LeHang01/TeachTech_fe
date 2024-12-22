@@ -1,0 +1,86 @@
+/* Điều chỉnh kích thước của container toast */
+.toastify .toast {
+  max-width: 200px;  /* Giới hạn chiều rộng của toast */
+  width: 100%;  /* Đảm bảo toast có thể bao phủ toàn bộ chiều rộng của container nếu cần */
+  padding: 10px 15px;  /* Điều chỉnh padding bên trong toast */
+  font-size: 14px;  /* Điều chỉnh kích thước chữ trong toast */
+}
+
+/* Điều chỉnh biểu tượng và nội dung trong toast */
+.custom-toast {
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 10px;  /* Giảm padding */
+  border-radius: 8px;
+  max-width: 400px;  /* Giới hạn chiều rộng của toast */
+  width: 100%;  /* Đảm bảo toast có thể bao phủ toàn bộ chiều rộng của container */
+}
+
+.notification-toast .toast-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.notification-toast .toast-content p {
+  margin: 5px 0;
+  font-size: 13px;  /* Điều chỉnh kích thước chữ */
+}
+
+.notification-toast .toast-content p strong {
+  color: #0056b3;
+}
+
+.notification-toast .toast-content p:last-child {
+  margin-bottom: 0;
+}
+.notification-toast .toast-content i {
+  font-size: 24px; /* Điều chỉnh kích thước biểu tượng */
+  width: 40px; /* Điều chỉnh kích thước */
+  height: 40px; /* Điều chỉnh kích thước */
+  line-height: 40px; /* Căn giữa biểu tượng trong hình tròn */
+  border-radius: 50%; /* Tạo hình tròn cho nền */
+  background-color: black; /* Màu nền cho biểu tượng */
+  color: white; /* Màu chữ của biểu tượng */
+}
+/* Điều chỉnh kích thước và cho phép cuộn trong Popover */
+.popover {
+  max-width: 350px;  /* Giới hạn chiều rộng popover */
+  width: 100%;  /* Đảm bảo popover có thể mở rộng tới 100% chiều rộng container */
+  max-height: 430px; /* Giới hạn chiều cao của popover */
+  overflow-y: auto;  /* Cho phép cuộn khi có nhiều thông báo */
+  word-wrap: break-word;  /* Cho phép ngắt dòng dài nếu cần */
+  padding: 15px; /* Điều chỉnh padding trong popover */
+  border-radius: 10px;
+}
+
+/* Điều chỉnh cho danh sách thông báo trong Popover */
+.popover-body {
+  padding: 0;  /* Giảm bớt padding */
+  height: 100%; /* Chiều cao popover sẽ tự động điều chỉnh */
+}
+
+/* Cải thiện giao diện của các thông báo trong Popover */
+.list-group-item {
+  padding: 10px; /* Điều chỉnh padding cho mỗi mục trong danh sách */
+  border: none;  /* Xóa border */
+  margin-bottom: 5px; /* Khoảng cách giữa các mục */
+  background-color: #f8f9fa;  /* Màu nền nhẹ cho từng mục */
+}
+
+/* Cải thiện việc hiển thị nội dung */
+.list-group-item .text-muted {
+  font-size: 12px;  /* Kích thước chữ nhỏ cho thời gian */
+  color: #888;  /* Màu sắc cho thời gian */
+}
+.popover-header{
+  text-align: center;
+  background-color: white;
+  padding-bottom: 30px;
+  font-size: large;
+}
+.d-flex button:hover{
+  background-color: transparent !important;
+}
+
+

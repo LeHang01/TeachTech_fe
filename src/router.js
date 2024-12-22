@@ -15,6 +15,10 @@ import Schedule from './pages/schedule/schedule';
 import LopHocTrucTuyen from './pages/class/class';
 import classes from './pages/classes/classes';
 import UploadDocuments from './pages/documents/documents';
+import MeetingTable from './pages/meeting/MeetingTable';
+import AddMeeting from './pages/meeting/AddMeeting';
+import AttendancePage from './pages/attendance/attendance';
+import MeetingTableStudent from './pages/meeting/MeetingTableStudent';
 
 export const mainRouters = [
   {
@@ -47,11 +51,7 @@ export const mainRouters = [
     component: CameraCapture,
     layout: MainLayout,
   },
-  {
-    path: '/attendance', // Route động cho chi tiết khóa học
-    component: VerifyImage,
-    layout: MainLayout,
-  },
+
   {
     path: '/login', // Route động cho chi tiết khóa học
     component: LoginForm,
@@ -87,4 +87,30 @@ export const mainRouters = [
     component: UploadDocuments,
     layout: TeacherLayout, // Layout dành cho học viên
   },
+  {
+    path: '/meeting', // Route cho học viên
+    component: MeetingTable,
+    layout: TeacherLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/add-meeting', // Route cho học viên
+    component: AddMeeting,
+    layout: TeacherLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/attendance/:meetingId', // Route cho học viên
+    component: AttendancePage,
+    layout: TeacherLayout, // Layout dành cho học viên
+  },
+  {
+    path: 'meeting-student' ,
+    component: MeetingTableStudent,
+    layout: StudentLayout, // Layout dành cho học viên
+  },
+  {
+    path: '/facial-recognition/:meetingId', // Route động cho chi tiết khóa học
+    component: VerifyImage,
+    layout: StudentLayout,
+  },
+  
 ];

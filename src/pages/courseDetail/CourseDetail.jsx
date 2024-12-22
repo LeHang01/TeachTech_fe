@@ -230,7 +230,7 @@ const CourseDetail = () => {
               <div className="team-item position-relative w-full">
                 <img
                   className="img-fluid rounded-circle "
-                  src={course.teacher.profile_picture} // Hình ảnh giáo viên từ API
+                  src={course.teacher.profile_picture ||''} // Hình ảnh giáo viên từ API
                   alt={course.teacher.name}
                   style={{ height: '500px', width: '100%' }}
                 />

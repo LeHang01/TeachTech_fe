@@ -191,7 +191,7 @@ const TeacherDashboard = () => {
                           <div className="d-flex align-items-center">
                             <img
                               className="rounded-circle flex-shrink-0"
-                              src={`http://127.0.0.1:8000${course.teacher.profile_picture}`}
+                              src={`http://127.0.0.1:8000${course.teacher.profile_picture || ''}`}
                               alt=""
                               style={{ width: '45px', height: '45px' }}
                             />

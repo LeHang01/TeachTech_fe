@@ -5,7 +5,7 @@ import './class.css';
 const LopHocTrucTuyen = () => {
   const [students, setStudents] = useState([
     { id: 1, name: 'Nguyễn Thị Lan Anh', status: 'Chưa điểm danh' },
-    { id: 2, name: 'Trần Minh Ân', status: 'Chưa điểm danh' },
+    { id: 2, name: 'Lê Thị Hằng', status: 'Chưa điểm danh' },
     { id: 3, name: 'Lê Quang Dương', status: 'Chưa điểm danh' },
     { id: 4, name: 'Phạm Thị Lan Giang', status: 'Chưa điểm danh' },
     { id: 5, name: 'Ngô Đức Hoàng', status: 'Chưa điểm danh' },
@@ -123,7 +123,7 @@ const LopHocTrucTuyen = () => {
                       >
                         {student.status}
                       </span>
-                      {student.name === 'Trần Minh Ân' && student.status === 'Chưa điểm danh' && (
+                      {student.name === 'Lê Thị Hằng' && student.status === 'Chưa điểm danh' && (
                         <div className="dropdown mt-2">
                           <button
                             className="btn btn-primary dropdown-toggle"

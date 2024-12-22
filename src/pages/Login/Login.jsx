@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Import toast từ react-toastify
+import { toast } from 'react-toastify';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Import biểu tượng
 
 const LoginForm = () => {
+  const storedUsername = localStorage.getItem('username') || '';
+  const storedPassword = localStorage.getItem('password') || '';
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: storedUsername,
+    password: storedPassword,
   });
-  const navigate = useNavigate(); // useNavigate to handle navigation
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Gửi yêu cầu đăng nhập lên backend
       const loginResponse = await axios.post('http://127.0.0.1:8000/api/auth/login/', formData);
 
-      // Lưu thông tin người dùng vào localStorage
       const { username, id, is_teacher, full_name } = loginResponse.data;
       localStorage.setItem('user', JSON.stringify({ username, id, is_teacher, full_name }));
 
-      // Chuyển hướng người dùng đến trang tương ứng với is_teacher
       if (is_teacher) {
-        navigate('/teacher-dashboard'); // Điều hướng đến trang giáo viên
+        navigate('/teacher-dashboard');
       } else {
-        navigate('/student-dashboard'); // Điều hướng đến trang học viên
+        navigate('/student-dashboard');
       }
     } catch (error) {
       console.error('Lỗi khi đăng nhập:', error);
@@ -46,7 +47,7 @@ const LoginForm = () => {
       <div className="container">
         <div className="bg-light rounded">
           <div className="row g-0">
-            <div className="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div className="col-lg-6">
               <div className="h-100 d-flex flex-column justify-content-center p-5">
                 <h1 className="mb-4">Login</h1>
                 <form onSubmit={handleSubmit}>
@@ -66,9 +67,9 @@ const LoginForm = () => {
                       </div>
                     </div>
                     <div className="col-12">
-                      <div className="form-floating">
+                      <div className="form-floating position-relative">
                         <input
-                          type="password"
+                          type={showPassword ? 'text' : 'password'}
                           className="form-control border-0"
                           id="password"
                           placeholder="Password"
@@ -77,6 +78,14 @@ const LoginForm = () => {
                           onChange={handleChange}
                         />
                         <label htmlFor="password">Password</label>
+                        {/* Nút toggle password */}
+                        <span
+                          className="position-absolute end-0 top-50 translate-middle-y me-3"
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+                        </span>
                       </div>
                     </div>
                     <div className="col-12">
@@ -89,8 +98,7 @@ const LoginForm = () => {
               </div>
             </div>
             <div
-              className="col-lg-6 wow fadeIn"
-              data-wow-delay="0.5s"
+              className="col-lg-6"
               style={{ minHeight: '400px' }}
             >
               <div className="position-relative h-100">
