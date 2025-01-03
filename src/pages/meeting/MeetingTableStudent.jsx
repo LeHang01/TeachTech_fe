@@ -237,18 +237,6 @@ const MeetingTableStudent = () => {
   return (
     <div className="meeting-container">
       <h1 className="meeting-title">Tất cả cuộc họp</h1>
-      <Button
-        type="primary"
-        className="add-meeting-btn"
-        onClick={() => navigate("/add-meeting")}
-        style={{
-          backgroundColor: 'rgb(2 104 231)', // Orange color
-          borderColor: 'rgb(2 104 231)', // Ensure the border matches the background
-          color: '#fff', // White text for contrast
-        }}
-      >
-        + Tạo cuộc họp
-      </Button>
       <Table
         columns={columns}
         dataSource={meetings}

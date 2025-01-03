@@ -9,7 +9,6 @@ import {
   ToggleButton,
   Badge,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Import Link từ react-router-dom
 import './schedule.css';
 
 const Schedule = () => {
@@ -255,14 +254,6 @@ const Schedule = () => {
                             Học bù
                           </div>
                         )}
-                        {/* Nút "Tham gia ngay" */}
-                        <div style={{ marginTop: '10px' }}>
-                          <Link to="/class">
-                            <Button variant="success" size="sm">
-                              Tham gia ngay
-                            </Button>
-                          </Link>
-                        </div>
                       </>
                     ) : (
                       '-'
@@ -296,14 +287,6 @@ const Schedule = () => {
                             Học bù
                           </div>
                         )}
-                        {/* Nút "Tham gia ngay" */}
-                        <div style={{ marginTop: '10px' }}>
-                          <Link to="/class">
-                            <Button variant="success" size="sm">
-                              Tham gia ngay
-                            </Button>
-                          </Link>
-                        </div>
                       </>
                     ) : (
                       '-'
@@ -337,14 +320,6 @@ const Schedule = () => {
                             Học bù
                           </div>
                         )}
-                        {/* Nút "Tham gia ngay" */}
-                        <div style={{ marginTop: '10px' }}>
-                          <Link to="/class">
-                            <Button variant="success" size="sm">
-                              Tham gia ngay
-                            </Button>
-                          </Link>
-                        </div>
                       </>
                     ) : (
                       '-'

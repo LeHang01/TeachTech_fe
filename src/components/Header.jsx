@@ -36,6 +36,7 @@ const Header = () => {
       if (response.data && Array.isArray(response.data)) {
         setNotifications(response.data);
         setMessageCount(response.data.filter(notificationItem => !notificationItem.is_seen).length);
+        console.log(response.data)
       }
     } catch (error) {
     }
@@ -82,13 +83,26 @@ const Header = () => {
 
     return `${hours}:${formattedMinutes} ${period}`; // Trả về "2:32 AM"
   };
+  const formatTime1 = (time) => {
+    // Lấy phần giờ từ datetime chuẩn
+    const date = new Date(time); // Tạo đối tượng Date từ chuỗi ISO
+    let hours = date.getHours(); // Lấy giờ (0 - 23)
+    const minutes = date.getMinutes(); // Lấy phút (0 - 59)
+
+    const period = hours < 12 ? 'AM' : 'PM'; // AM hoặc PM
+    hours = hours % 12; // Chuyển sang định dạng 12 giờ
+    if (hours === 0) hours = 12; // Nếu giờ là 0 thì hiển thị 12
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes; // Thêm số 0 nếu phút nhỏ hơn 10
+
+    return `${hours}:${formattedMinutes} ${period}`; // Trả về "2:32 AM"
+  };
 
   useEffect(() => {
     fetchNotifications();
   }, [fetchNotifications]);
 
   useEffect(() => {
-
     // Establish connection with Pusher
     const pusher = new Pusher('3c30a568c6f720f4d929', {
       cluster: 'ap1',
@@ -97,52 +111,81 @@ const Header = () => {
     const channelName = `${user_id}`; // Create channel name based on user ID
     const channel = pusher.subscribe(channelName);
 
-    // Listen for the 'Payment' event from Pusher
-    channel.bind('Payment', (data) => {
-      const notificationData = data;  // Assuming data contains the 'data' field with notification details
+    // Listen for all types of events
+    const handleNotification = (data) => {
+      const notificationData = data;
+      const type = notificationData.type; // Type of notification: "Payment" or "Meeting"
+
+      const formattedNotification =
+        type === "Payment"
+          ? {
+            description: notificationData.course_name,
+            full_name: notificationData.full_name,
+            phone_number: notificationData.phone_number,
+            address: notificationData.address,
+            course_name: notificationData.course_name,
+            course_price: notificationData.course_price,
+            teacher_name: notificationData.teacher_name,
+            created_at: notificationData.created_at,
+            id: notificationData._id,
+            type,
+          }
+          : {
+            description: `Cuộc họp: ${notificationData.course_name}`,
+            time: notificationData.time,
+            course_name: notificationData.course_name,
+            teacher_name: notificationData.teacher_name,
+            created_at: notificationData.created_at,
+            id: notificationData._id,
+            type,
+          };
 
       setNotifications((prevNotifications) => [
-        {
-          description: notificationData.course_name,  // Example field from backend
-          full_name: notificationData.full_name,
-          phone_number: notificationData.phone_number,
-          address: notificationData.address,
-          course_name: notificationData.course_name,
-          course_price: notificationData.course_price,
-          teacher_name: notificationData.teacher_name,
-          teacher_id: notificationData.teacher_id,
-          seen_users: notificationData.seen_users,
-          created_at: notificationData.created_at,
-          id: notificationData._id,
-        },
+        formattedNotification,
         ...prevNotifications,
       ]);
 
-      setMessageCount((prevCount) => prevCount + 1);      toast.info(
+      setMessageCount((prevCount) => prevCount + 1);
 
-        <div className="notification-toast">
-          <h4 className="toast-title">Thông báo mới</h4>
-          <div className="toast-content">
-            <p><strong>Họ tên:</strong> {notificationData.full_name}</p>
-            <p><strong>Khóa học:</strong> {notificationData.course_name}</p>
+      const toastMessage =
+        type === "Payment" ? (
+          <div className="notification-toast">
+            <h4 className="toast-title">Thông báo thanh toán</h4>
+            <div className="toast-content">
+              <p><strong>Họ tên:</strong> {notificationData.full_name}</p>
+              <p><strong>Khóa học:</strong> {notificationData.course_name}</p>
+            </div>
           </div>
-        </div>,
-        {
-          position: 'top-left',
-          autoClose: 20000,
-          hideProgressBar: false,
-          closeButton: true,
-          className: 'custom-toast',
-        }
-      );
-    });
+        ) : (
+          <div className="notification-toast">
+            <h4 className="toast-title">Thông báo cuộc họp</h4>
+            <div className="toast-content">
+              <p><strong>Khóa học:</strong> {notificationData.course_name}</p>
+              <p><strong>Thời gian họp:</strong>  {formatTime1(notificationData.time)} - {formatTime1(notificationData.time)}</p>
+            </div>
+          </div>
+        );
+        console.log(notificationData)
+      toast.info(toastMessage, {
+        position: 'top-left',
+        autoClose: 20000,
+        hideProgressBar: false,
+        closeButton: true,
+        className: 'custom-toast',
+      });
+    };
+
+    // Bind events
+    channel.bind("Payment", handleNotification);
+    channel.bind("Meeting", handleNotification);
 
     return () => {
-      pusher.unsubscribe(channelName);  // Unsubscribe when component unmounts
+      pusher.unsubscribe(channelName); // Unsubscribe when component unmounts
     };
   }, [user_id]);
+
   const handleNotificationClick = () => {
-    navigate('/schedule');
+    navigate('/meeting-student');
   };
 
 
@@ -221,21 +264,42 @@ const Header = () => {
               >
                 <div className="d-flex justify-content-between align-items-center">
                   <div>
-                    <strong>{notification.full_name}</strong> đã mua khóa học{' '}
-                    <strong>{notification.course_name}</strong>.
-                    <div className="text-muted small">
-                      {formatTime2(notification.created_at)} - {formatDate2(notification.created_at)}
-                    </div>
+                    {notification.type === "Payment" ? (
+                      <>
+                        <strong>{notification.full_name}</strong> đã mua khóa học{' '}
+                        <strong>{notification.course_name}</strong>.
+                        <div className="text-muted small">
+                          {formatTime2(notification.created_at)} - {formatDate2(notification.created_at)}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        Cuộc họp <strong>{notification.course_name}</strong> được lên lịch.
+                        <div className="text-muted small">
+                          {formatTime2(notification.created_at)} - {formatDate2(notification.created_at)}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
                 {expandedNotifications[notification.id] && (
                   <div className="mt-2">
-                    <p><strong>Số điện thoại:</strong> {notification.phone_number}</p>
-                    <p><strong>Địa chỉ:</strong> {notification.address}</p>
-                    <p><strong>Giá khóa học:</strong> {notification.course_price.toLocaleString()} VND</p>
-                    <p><strong>Giảng viên:</strong> {notification.teacher_name}</p>
-                    <p><strong>Thời gian mua:</strong> {formatTime2(notification.created_at)}</p>
-                    <p><strong>Ngày mua:</strong> {formatDate2(notification.created_at)}</p>
+                    {notification.type === "Payment" ? (
+                      <>
+                        <p><strong>Số điện thoại:</strong> {notification.phone_number}</p>
+                        <p><strong>Địa chỉ:</strong> {notification.address}</p>
+                        <p><strong>Giá khóa học:</strong> {notification.course_price.toLocaleString()} VND</p>
+                        <p><strong>Giảng viên:</strong> {notification.teacher_name}</p>
+                        <p><strong>Thời gian mua:</strong> {formatTime2(notification.created_at)}</p>
+                        <p><strong>Ngày mua:</strong> {formatDate2(notification.created_at)}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p><strong>Thời gian họp:</strong>  {formatTime1(notification.time)} - {formatDate2(notification.time)}</p>
+                        <p><strong>Khóa học:</strong> {notification.course_name}</p>
+                        <p><strong>Giảng viên:</strong> {notification.teacher_name}</p>
+                      </>
+                    )}
                   </div>
                 )}
                 <Button
@@ -252,6 +316,7 @@ const Header = () => {
             <div className="text-center text-muted">No notifications</div>
           )}
         </ListGroup>
+
       </Popover.Body>
     </Popover>
   );

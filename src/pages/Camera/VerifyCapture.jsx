@@ -12,7 +12,6 @@ const VerifyImage = () => {
   const [capturedFrames, setCapturedFrames] = useState([]);
   const streamRef = useRef(null);
   const [showRescanButton, setShowRescanButton] = useState(false);
-  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null); // Thông tin user từ backend
   const [showCheckInButton, setShowCheckInButton] = useState(false); // Hiển thị nút "Điểm danh"
   const formatDate = (dateString) => moment(dateString).format('DD/MM/YYYY');
@@ -329,27 +328,6 @@ const VerifyImage = () => {
                 </tr>
               </tbody>
             </table>
-            {showCheckInButton && (
-              <button
-                onClick={handleCheckIn}
-                style={{
-                  marginTop: '20px',
-                  width: '100%',
-                  fontSize: '16px',
-                  backgroundColor: '#FE5D37',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  padding: '10px',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.3s ease',
-                }}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = '#FE5D37')}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = '#FE5D37')}
-              >
-                Điểm danh
-              </button>
-            )}
           </div>
         )}
       </div>
