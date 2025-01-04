@@ -1,0 +1,76 @@
+/* Tổng thể */
+body {
+    background-color: #f4f7fc;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Container chính */
+  .container {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  /* Card */
+  .ant-card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tiêu đề */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Mô tả */
+  p {
+    color: #555;
+    font-size: 14px;
+  }
+  
+  /* Nút đổi mật khẩu */
+  .ant-btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  /* Form */
+  .ant-form-item-label > label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  /* Input */
+  .ant-input-password {
+    border-radius: 5px;
+  }
+  
+  /* Alert */
+  .ant-alert {
+    font-size: 14px;
+  }
+  
+  
+  /* Media Query cho thiết bị nhỏ */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    h2 {
+      font-size: 20px;
+    }
+  
+    .ant-btn-primary {
+      font-size: 14px;
+    }
+  }
+  

@@ -334,47 +334,44 @@ const Header = () => {
             isTeacher ? (
               <>
                 <Link to="/" className="nav-item nav-link">
-                  Home
+                  Trang chủ
                 </Link>
-                <Link to="/classes" className="nav-item nav-link">
-                  Classes
-                </Link>
-                <Link to="/schedule" className="nav-item nav-link">
-                  Schedule
-                </Link>
-                <Link to="/documents" className="nav-item nav-link">
-                  Documents
+                <Link to="/teacher-schedule" className="nav-item nav-link">
+                  Lịch dạy
                 </Link>
                 <Link to="/meeting" className="nav-item nav-link">
-                  Meetings
+                  Quản lý buổi học
+                </Link>
+                <Link to="/student-list" className="nav-item nav-link">
+                  Danh sách sinh viên
+                </Link>
+                <Link to="/chang-password" className="nav-item nav-link">
+                  Đổi mật khẩu
                 </Link>
               </>
             ) : (
               <>
                 <Link to="/" className="nav-item nav-link">
-                  Home
+                  Trang chủ
                 </Link>
                 <Link to="/schedule" className="nav-item nav-link">
-                  Schedule
-                </Link>
-                <Link to="/class" className="nav-item nav-link">
-                  Class
-                </Link>
-                <Link to="/classes" className="nav-item nav-link">
-                  Grades
+                  Lịch học
                 </Link>
                 <Link to="/meeting-student" className="nav-item nav-link">
-                  Meetings
+                  Buổi học
+                </Link>
+                <Link to="/chang-password" className="nav-item nav-link">
+                  Đổi mật khẩu
                 </Link>
               </>
             )
           ) : (
             <>
               <Link to="/" className="nav-item nav-link active">
-                Home
+                Trang chủ
               </Link>
               <Link to="/about" className="nav-item nav-link">
-                About Us
+                Thông tin về chúng tôi
               </Link>
             </>
           )}
@@ -401,11 +398,11 @@ const Header = () => {
           )}
           {isLoggedIn ? (
             <Button variant="primary" className="rounded-pill px-3" onClick={handleLogout}>
-              Logout <i className="fa fa-arrow-right ms-2"></i>
+              Đăng xuất <i className="fa fa-arrow-right ms-2"></i>
             </Button>
           ) : (
             <Link to="/login" className="btn btn-primary rounded-pill px-3">
-              Log in <i className="fa fa-arrow-right ms-2"></i>
+              Đăng nhập<i className="fa fa-arrow-right ms-2"></i>
             </Link>
           )}
         </div>

@@ -20,8 +20,8 @@ const LoginForm = () => {
     try {
       const loginResponse = await axios.post('http://127.0.0.1:8000/api/auth/login/', formData);
 
-      const { username, id, is_teacher, full_name } = loginResponse.data;
-      localStorage.setItem('user', JSON.stringify({ username, id, is_teacher, full_name }));
+      const { username, id, is_teacher, full_name ,course_name} = loginResponse.data;
+      localStorage.setItem('user', JSON.stringify({ username, id, is_teacher, full_name ,course_name}));
 
       if (is_teacher) {
         navigate('/teacher-dashboard');

@@ -253,35 +253,6 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
-
-        {/* Thông tin chi tiết khác (Video, giá, thời gian...) */}
-        <div className="row mt-5">
-          <div className="col-md-6">
-            <p>
-              <strong>Price:</strong> {course.price} $
-            </p>
-            <p>
-              <strong>Start Date:</strong> {course.start_date}
-            </p>
-            <p>
-              <strong>End Date:</strong> {course.end_date}
-            </p>
-            <p>
-              <strong>Time:</strong> {course.time}
-            </p>
-            <p>
-              <strong>Category:</strong> {course.category.name}
-            </p>
-          </div>
-          <div className="col-md-6">
-            <p>
-              <strong>Video:</strong>
-            </p>
-            <a href={course.course_video} target="_blank" rel="noopener noreferrer">
-              Xem video khóa học
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );

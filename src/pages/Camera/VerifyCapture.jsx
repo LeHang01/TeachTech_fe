@@ -122,15 +122,13 @@ const VerifyImage = () => {
       const userData = JSON.parse(localStorage.getItem("user"));
       const user_id = parseInt(userData.id, 10); // Chuyển user_id thành số nguyên
       const meetingIdParsed = parseInt(meetingId, 10); // Chuyển meetingId thành số nguyên
-      console.log('user_id',user_id)
-      console.log('meetingIdParsed', meetingIdParsed)
       const response = await axios.post('http://127.0.0.1:8000/api/faces/recognize/', {
         meetingId: meetingIdParsed,
         user_id: user_id,
         images: capturedFrames, // Mảng base64 của ảnh
       });
 
-      if (parseInt(response.data.user_id, 10) === parseInt(user_id, 10)) {
+      if (response.status === 200) {
         // Xử lý nếu trùng khớp
         setUserInfo(response.data);
         setShowCheckInButton(true);

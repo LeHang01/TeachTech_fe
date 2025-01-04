@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Row,
@@ -12,7 +13,7 @@ import {
 } from 'react-bootstrap';
 import './schedule.css';
 
-const Schedule = () => {
+const TeacherSchedule = () => {
   const [view, setView] = useState('all'); // Chế độ xem: 'all', 'schedule', 'exam'
   const [weekStart, setWeekStart] = useState(getWeekStart(new Date())); // Tính ngày đầu tuần hiện tại
   const [scheduleData, setScheduleData] = useState([]);
@@ -28,7 +29,7 @@ const Schedule = () => {
   }, [user_id]);
   const fetchScheduleData = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/schedule/by-user/`, {
+      const response = await axios.get(`http://127.0.0.1:8000/api/schedule/by-teacher/`, {
         params: {
           user_id: user_id,
         },
@@ -85,7 +86,8 @@ const Schedule = () => {
       <Row>
         <Col>
           <h3 style={{ color: '#495057', textAlign: 'center' }}>Lịch học, Lịch thi theo tuần</h3>
-
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          
           <ButtonGroup className="mb-3">
             <ToggleButton
               type="radio"
@@ -115,6 +117,10 @@ const Schedule = () => {
               Lịch thi
             </ToggleButton>
           </ButtonGroup>
+            <Link to="/create-schedule"> {/* Link chuyển trang */}
+              <Button variant="primary">Tạo lịch học</Button>
+            </Link>
+          </div>
 
           <Table
             bordered
@@ -251,4 +257,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default TeacherSchedule;
